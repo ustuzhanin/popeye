@@ -18,3 +18,7 @@ func NewService(svcs map[string]*v1.Service) *Service {
 func (s *Service) ListServices() map[string]*v1.Service {
 	return s.svcs
 }
+
+func (s *Service) GetService(fqn string) *v1.Service {
+	return s.svcs[fqn]
+}

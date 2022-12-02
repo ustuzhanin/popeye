@@ -14,6 +14,7 @@ import (
 type Ingress struct {
 	*issues.Collector
 	*cache.Ingress
+	*cache.Service
 	*config.Config
 
 	client types.Connection
@@ -29,6 +30,11 @@ func NewIngress(ctx context.Context, c *Cache, codes *issues.Codes) Sanitizer {
 
 	var err error
 	d.Ingress, err = c.ingresses()
+	if err != nil {
+		d.AddErr(ctx, err)
+	}
+
+	d.Service, err = c.services()
 	if err != nil {
 		d.AddErr(ctx, err)
 	}
